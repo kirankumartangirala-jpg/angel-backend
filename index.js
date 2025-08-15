@@ -1,7 +1,9 @@
 import express from "express";
+import cors from "cors";
 import OpenAI from "openai";
 
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 // API endpoint
@@ -36,6 +38,10 @@ app.post("/api/ask", async (req, res) => {
   }
 });
 
-// Run server
+// Root route (optional) so visiting "/" shows a friendly message
+app.get("/", (req, res) => {
+  res.send("Backend is running! Use POST /api/ask for the AI bot.");
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
